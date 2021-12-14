@@ -77,6 +77,7 @@ var subtotal = {
 };
 var total = 0;
 
+
 // Exercise 1
 function buy(id) {
    
@@ -94,7 +95,8 @@ function buy(id) {
 
 // Exercise 2
 function cleanCart() {
-
+    cartList = [];
+    console.log('La cesta se ha vaciado correctamente. Productos en la cesta: ' + cartList.length);
 }
 
 // Exercise 3
