@@ -90,6 +90,7 @@ function buy(id) {
     });
     calculateSubtotals();
     calculateTotal();
+    document.getElementById("cartQuantity").innerHTML = cartList.length;
 }
 
 // Exercise 2
@@ -144,12 +145,13 @@ function generateCart() {
     var productFound; //definimos un flag para saber si hemos encontrado o no el producto en Cart.
     cartList.forEach (productCartList => {
         productFound = false;
-        // Buscamos si el producto esta en el cart
+        // Buscamos si el producto esta en el Cart.
         cart.forEach (productCart => {
             if(productCartList.id === productCart.id) {
                 productFound = true;
                 productCart.quantity ++;
                 productCart.subtotal = productCart.quantity * productCart.price;
+                productCart.subtotalWithDiscount = productCart.subtotal;
             }
         }); 
 
@@ -157,17 +159,29 @@ function generateCart() {
             var product = Object.assign({}, productCartList); //Hago una copia del productCartList sin la referencia para poder modificar "quantity"
             product.quantity = 1;
             product.subtotal = product.price;
+            product.subtotalWithDiscount = product.subtotal;
             cart.push (product); 
         }  
     });
     console.log('Carrito generado:');
-    console.log(cart);
-    
+    console.log(cart);  
+    applyPromotionsCart(cart);
+    //Llamar a la funcion applyPromotionsCart
 }
 
 // Exercise 5
-function applyPromotionsCart() {
+function applyPromotionsCart(cartWithPromos) {
     // Apply promotions to each item in the array "cart"
+
+    cartWithPromos.forEach (productCart => {
+        if(productCart.name === 'cooking oil' && productCart.quantity >= 3) {
+            productCart.subtotalWithDiscount = productCart.quantity * 10;
+        }else if(productCart.name === 'Instant cupcake mixture' &&  productCart.quantity >= 10) {
+            productCart.subtotalWithDiscount = (productCart.subtotal * 2) / 3;
+        }
+    });
+    console.log('Promociones aplicadas:');
+    console.log(cartWithPromos);   
 }
 
 // Exercise 7
