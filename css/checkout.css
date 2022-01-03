@@ -1,8 +1,20 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
+
 body {
     font-family: Poppins;
 }
-#errorPassword, #errorName, #errorPhone {
+/*La almohadilla simboliza el id del elemento HTML*/
+#errorPassword, #errorFirstName, #errorPhone, #errorEmail, #errorLastName, #errorAddress {
     display: none;
+    color: #dc3545;
+}
+
+.input-invalid {
+    border-color: #dc3545;
+    background-color: rgba(220, 53, 70, 0.25);
+    display: inline-block;
+    margin: 0 0.5rem;
+    animation: headShake;
+    animation-duration: 2s;
 }
