@@ -1,5 +1,5 @@
 /*Regular Expressions. Las expresiones regulares (a menudo llamadas RegExp o RegEx) son patrones que se utilizan 
-para hacer coincidir combinaciones de caracteres en cadenas. Ejemplos:*/
+para hacer coincidir combinaciones de caracteres en cadenas */
 
 const regText = /^[a-zA-ZÀ-ÿ\s]{1,40}$/;
 const regPassword = /^.{4,12}$/;
