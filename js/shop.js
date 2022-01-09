@@ -131,14 +131,17 @@ function calculateSubtotals(productsToCalculate) { //la funcion recibe una array
 function calculateTotal(productsToCalculate) {//la funcion recibe una array con la que se calculan los totales
     // Calculate total price of the cart either using the "cartList" array
     total = 0; // Le damos el valor "0" a total para que no se acumule al total anterior
+    var totalQuantity = 0;
     productsToCalculate.forEach (product => { // recorremos la array de cart (productsToCalculate)
         total = product.subtotal + total;
+        totalQuantity = product.quantity + totalQuantity;
     });
     console.log ('El total es:' + total);
+    document.getElementById("cartQuantity").innerHTML = totalQuantity + " / $" + total;
 }
 
 // Exercise 4
-//No hace falta que la función reciba CartList porque es una variable global ¿¿¿¿????
+//No hace falta que la función reciba CartList porque es una variable global
 function generateCart() {
     // Using the "cartlist" array that contains all the items in the shopping cart, 
     // generate the "cart" array that does not contain repeated items, instead each item of this array "cart" shows the quantity of product.
@@ -233,11 +236,29 @@ function addToCart(id) { //la función recibe el id del producto que se va a añ
 function removeFromCart(id) { //la función recibe el id del producto que se va a eliminar del carrito o restar 1 ud.
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cartList array
-
-   
+    
+    var index = 0;
+    // 1.1  Si hay mas de 1 ud. del producto, tendremos que restar 1.
+    cart.forEach (productCart => {
+        if(productCart.id === id) {
+            //Hemos encontrado el producto a eliminar
+            if (productCart.quantity > 1) { //Si hay más de uno, decrementamos la cantidad en 1
+                productCart.quantity --;
+                productCart.subtotal = productCart.quantity * productCart.price;
+                productCart.subtotalWithDiscount = productCart.subtotal;
+            } else { //Si solo hay uno lo eliminamos de cart
+                cart.splice(index,1);
+            }
+        }
+        index++;
+    });    
+    calculateSubtotals(cart);
+    calculateTotal(cart);
+    applyPromotionsCart(cart);
+    console.log(cart);
 }
 
 // Exercise 9
 function printCart() {
-    // Fill the shopping cart modal manipulating the shopping cart dom
+   
 }
